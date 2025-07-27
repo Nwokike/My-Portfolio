@@ -4,7 +4,7 @@ This repository contains my submission for the [PLP Academy July 2025 Cohort Hac
 
 ### Live Demo
 
-You can view the live deployed version of my portfolio here: ___________________________________
+You can view the live deployed version of my portfolio here: **https://nwokike.github.io/portfolio**
 
 ---
 
