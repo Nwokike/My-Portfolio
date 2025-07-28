@@ -23,7 +23,7 @@ The portfolio includes the following sections as required by the challenge:
 This portfolio highlights several key projects:
 
 1.  **Igbo Archives:** A cultural heritage blog I developed and manage, focusing on content strategy and SEO to grow its audience.
-2.  **BrainBurst Nigeria:** An blog for which I handled full-stack WordPress development and search engine optimization.
+2.  **BrainBurst Nigeria:** A blog for which I handled full-stack WordPress development and search engine optimization.
 3.  **PrivCon Privacy Awards:** The official event website for a prestigious awards ceremony, built to be professional, responsive, and secure.
 4.  **Barroti Apartments:** A modern real estate website designed for lead generation and effective property showcasing.
 
