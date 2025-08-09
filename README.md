@@ -1,37 +1,46 @@
-# Personal Portfolio Challenge - Onyeka Nwokike
+# Onyeka Nwokike - Personal Portfolio
 
-This repository contains my submission for the [PLP Academy July 2025 Cohort Hackathon 1](https://github.com/MuriithiEric/July2025Cohort-Hackathon1?tab=readme-ov-file). It is a personal portfolio website built to showcase my skills, projects, and background, adhering strictly to the "HTML and CSS only" rule.
+This repository contains the source code for my personal portfolio website. It's a custom-built project designed to showcase my journey, skills, and projects as I transition from a background in engineering to a career in software development.  
 
-### Live Demo
-
-You can view the live deployed version of my portfolio here: **https://nwokike.github.io/portfolio**
+[**View Live Portfolio →**](#)
 
 ---
 
-### Project Overview
+## About This Project
 
-The portfolio includes the following sections as required by the challenge:
-
--   **About Me:** A brief introduction to my professional background and passion for technology.
--   **Skills:** A list of my key technical skills.
--   **Projects:** A dedicated showcase of websites I have developed and optimized.
--   **Educational Background:** Details of my academic qualifications, including a downloadable CV.
--   **Contact Form:** A functional form for potential collaborators and employers to reach out.
-
-### Featured Projects
-
-This portfolio highlights several key projects:
-
-1.  **Igbo Archives:** A cultural heritage blog I developed and manage, focusing on content strategy and SEO to grow its audience.
-2.  **BrainBurst Nigeria:** A blog for which I handled full-stack WordPress development and search engine optimization.
-3.  **PrivCon Privacy Awards:** The official event website for a prestigious awards ceremony, built to be professional, responsive, and secure.
-4.  **Barroti Apartments:** A modern real estate website designed for lead generation and effective property showcasing.
-
-### Technology Stack
-
-This project was built using only the following technologies:
-
--   **HTML5:** For the structure and content of the website.
--   **CSS3:** For all styling, layout, and responsiveness. No JavaScript or CSS frameworks were used.
+This portfolio is more than just a list of my accomplishments; it's a project I built from scratch to reflect my personal brand and technical capabilities. It tells the story of how my engineering background gives me a unique perspective on building software and solving problems. The design is **clean, modern, and fully responsive**.
 
 ---
+
+## Tech Stack
+
+- **HTML5**: For the core structure and semantic content.  
+- **Tailwind CSS**: For all styling, enabling a responsive, utility-first approach to design without writing custom CSS.  
+- **JavaScript (ES6+)**: For dynamic and interactive elements, such as the mobile menu, scroll-triggered animations, and other UI enhancements.
+
+---
+
+## Key Features
+
+- **Fully Responsive Design** – The layout adapts seamlessly to all screen sizes, from mobile phones to widescreen desktops.  
+- **Modern UI/UX** – A clean, dark-themed design with smooth animations and a strong focus on readability and user experience.  
+- **Narrative-Driven Content** – Copy written to tell a compelling story about my career transition.  
+- **Dynamic Skill Showcase** – Highlights my technical toolkit and tracks current learning progress with visual bars.  
+- **Project Section** – Features a curated list of my most significant projects with descriptions focused on impact and links to live versions.  
+- **Integrated CV** – Visitors can easily download a PDF version of my resume.  
+- **Functional Contact Form** – Includes a contact form ready to be connected to a backend service like Formspree.
+
+---
+
+## Local Setup
+
+To view or edit this project on your local machine:
+
+```bash
+# Clone the repository
+git clone https://github.com/Nwokike/portfolio.git
+
+# Navigate to the project directory
+cd portfolio
+
+# Open index.html in your browser (no special servers or build steps needed)
