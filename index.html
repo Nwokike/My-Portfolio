@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- The 'dark' class is applied by default, can be toggled via JS -->
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
@@ -13,34 +14,56 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
+    <!-- Feather Icons for theme toggle -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
     <!-- Custom Styles & Tailwind Config -->
     <style>
         /* Custom scrollbar for a more modern look */
+        /* Light mode scrollbar */
+        :root {
+            --scrollbar-track: #f1f5f9;
+            --scrollbar-thumb: #94a3b8;
+            --scrollbar-thumb-hover: #64748b;
+        }
+        /* Dark mode scrollbar */
+        .dark {
+            --scrollbar-track: #1e293b;
+            --scrollbar-thumb: #475569;
+            --scrollbar-thumb-hover: #64748b;
+        }
         ::-webkit-scrollbar {
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #111827;
+            background: var(--scrollbar-track);
         }
         ::-webkit-scrollbar-thumb {
-            background: #374151;
+            background: var(--scrollbar-thumb);
             border-radius: 10px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #4b5563;
+            background: var(--scrollbar-thumb-hover);
         }
     </style>
     <script>
         // Customizing Tailwind CSS theme
         tailwind.config = {
+            darkMode: 'class', // This enables class-based dark mode
             theme: {
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
                     },
                     colors: {
-                        'brand-primary': '#3b82f6', // A vibrant blue
-                        'brand-secondary': '#10b981', // A fresh green
+                        'brand-primary': '#3b82f6', 
+                        'brand-secondary': '#10b981',
+                        // Light theme colors
+                        'light-bg': '#f8fafc',
+                        'light-card': '#ffffff',
+                        'light-text': '#0f172a',
+                        'light-subtext': '#475569',
+                        // Dark theme colors
                         'dark-bg': '#0f172a',
                         'dark-card': '#1e293b',
                         'dark-text': '#e2e8f0',
@@ -65,34 +88,41 @@
         }
     </script>
 </head>
-<body class="bg-dark-bg text-dark-text font-sans antialiased">
+<body class="bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text font-sans antialiased transition-colors duration-300">
 
     <!-- Header -->
-    <header id="header" class="bg-dark-bg/80 backdrop-blur-lg sticky top-0 z-50 transition-all duration-300">
+    <header id="header" class="bg-light-bg/80 dark:bg-dark-bg/80 backdrop-blur-lg sticky top-0 z-50 transition-all duration-300">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-white tracking-wider">
+            <a href="#" class="text-2xl font-bold text-light-text dark:text-white tracking-wider">
                 Onyeka<span class="text-brand-primary">.</span>
             </a>
             <div class="hidden md:flex items-center space-x-8">
-                <a href="#about" class="text-dark-subtext hover:text-white transition-colors duration-300">About</a>
-                <a href="#skills" class="text-dark-subtext hover:text-white transition-colors duration-300">Skills</a>
-                <a href="#projects" class="text-dark-subtext hover:text-white transition-colors duration-300">Projects</a>
-                <a href="#education" class="text-dark-subtext hover:text-white transition-colors duration-300">Education</a>
+                <a href="#about" class="text-light-subtext dark:text-dark-subtext hover:text-light-text dark:hover:text-white transition-colors duration-300">About</a>
+                <a href="#skills" class="text-light-subtext dark:text-dark-subtext hover:text-light-text dark:hover:text-white transition-colors duration-300">Skills</a>
+                <a href="#projects" class="text-light-subtext dark:text-dark-subtext hover:text-light-text dark:hover:text-white transition-colors duration-300">Projects</a>
+                <a href="#education" class="text-light-subtext dark:text-dark-subtext hover:text-light-text dark:hover:text-white transition-colors duration-300">Education</a>
             </div>
-            <a href="#contact" class="hidden md:inline-block bg-brand-primary text-white font-semibold px-5 py-2 rounded-lg hover:bg-blue-500 transition-all duration-300 shadow-lg shadow-blue-500/20">
-                Contact Me
-            </a>
-            <!-- Mobile Menu Button -->
-            <button id="mobile-menu-btn" class="md:hidden text-white focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-            </button>
+            <div class="flex items-center space-x-4">
+                 <a href="#contact" class="hidden md:inline-block bg-brand-primary text-white font-semibold px-5 py-2 rounded-lg hover:bg-blue-500 transition-all duration-300 shadow-lg shadow-blue-500/20">
+                    Contact Me
+                </a>
+                 <!-- Theme Toggle Button -->
+                <button id="theme-toggle" class="p-2 rounded-full text-light-subtext dark:text-dark-subtext hover:bg-gray-200 dark:hover:bg-slate-700 focus:outline-none">
+                    <i data-feather="moon" class="hidden dark:inline"></i>
+                    <i data-feather="sun" class="inline dark:hidden"></i>
+                </button>
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-light-text dark:text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
         </nav>
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
-            <a href="#about" class="block py-2 text-dark-subtext hover:text-white">About</a>
-            <a href="#skills" class="block py-2 text-dark-subtext hover:text-white">Skills</a>
-            <a href="#projects" class="block py-2 text-dark-subtext hover:text-white">Projects</a>
-            <a href="#education" class="block py-2 text-dark-subtext hover:text-white">Education</a>
+            <a href="#about" class="block py-2 text-light-subtext dark:text-dark-subtext hover:text-light-text dark:hover:text-white">About</a>
+            <a href="#skills" class="block py-2 text-light-subtext dark:text-dark-subtext hover:text-light-text dark:hover:text-white">Skills</a>
+            <a href="#projects" class="block py-2 text-light-subtext dark:text-dark-subtext hover:text-light-text dark:hover:text-white">Projects</a>
+            <a href="#education" class="block py-2 text-light-subtext dark:text-dark-subtext hover:text-light-text dark:hover:text-white">Education</a>
             <a href="#contact" class="block mt-2 text-center bg-brand-primary text-white font-semibold px-5 py-2 rounded-lg hover:bg-blue-500 transition-all duration-300">Contact Me</a>
         </div>
     </header>
@@ -103,17 +133,17 @@
         <section id="hero" class="min-h-[80vh] flex items-center">
             <div class="grid md:grid-cols-2 gap-12 items-center">
                 <div class="order-2 md:order-1 animate-fade-in-up">
-                    <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-4">
+                    <h1 class="text-4xl md:text-6xl font-extrabold text-light-text dark:text-white leading-tight mb-4">
                         Software Developer in the Making
                     </h1>
-                    <p class="text-lg md:text-xl text-dark-subtext mb-8 max-w-xl">
+                    <p class="text-lg md:text-xl text-light-subtext dark:text-dark-subtext mb-8 max-w-xl">
                         I build clean, responsive, and user-friendly websites while sharpening my skills in Python, databases, and modern web technologies. My work blends creativity with problem-solving, and I’m committed to learning tools that help me create impactful, real-world solutions.
                     </p>
                     <div class="flex flex-wrap gap-4">
                         <a href="#projects" class="bg-brand-primary text-white font-semibold px-8 py-3 rounded-lg hover:bg-blue-500 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/30">
                             See My Projects
                         </a>
-                        <a href="./CV ONYEKA NWOKIKE .pdf" download="CV-Onyeka-Nwokike.pdf" class="bg-dark-card text-dark-subtext font-semibold px-8 py-3 rounded-lg hover:bg-slate-700 hover:text-white transition-all duration-300">
+                        <a href="./CV ONYEKA NWOKIKE .pdf" download="CV-Onyeka-Nwokike.pdf" class="bg-light-card dark:bg-dark-card text-light-subtext dark:text-dark-subtext font-semibold px-8 py-3 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700 hover:text-light-text dark:hover:text-white transition-all duration-300">
                             Download CV
                         </a>
                     </div>
@@ -121,7 +151,7 @@
                 <div class="order-1 md:order-2 flex justify-center items-center animate-fade-in-up" style="animation-delay: 0.2s;">
                     <div class="relative w-72 h-72 md:w-96 md:h-96">
                         <div class="absolute inset-0 bg-gradient-to-br from-brand-primary to-brand-secondary rounded-full blur-2xl opacity-50"></div>
-                        <img src="FB_IMG.jpg" alt="Onyeka Nwokike" class="relative w-full h-full object-cover rounded-full border-4 border-dark-card shadow-2xl animate-subtle-pulse"
+                        <img src="FB_IMG.jpg" alt="Onyeka Nwokike" class="relative w-full h-full object-cover rounded-full border-4 border-light-card dark:border-dark-card shadow-2xl animate-subtle-pulse"
                              onerror="this.onerror=null; this.src='https://placehold.co/400x400/1e293b/e2e8f0?text=Onyeka';">
                     </div>
                 </div>
@@ -131,14 +161,14 @@
         <!-- About Section -->
         <section id="about" class="py-24">
             <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold text-white">My Story</h2>
-                <p class="text-dark-subtext mt-2">From agric engineering to software solutions</p>
+                <h2 class="text-4xl font-bold text-light-text dark:text-white">My Story</h2>
+                <p class="text-light-subtext dark:text-dark-subtext mt-2">From agric engineering to software solutions</p>
             </div>
-            <div class="bg-dark-card p-8 md:p-12 rounded-2xl shadow-2xl max-w-4xl mx-auto animate-fade-in-up">
-                <p class="text-lg text-dark-subtext leading-relaxed">
+            <div class="bg-light-card dark:bg-dark-card p-8 md:p-12 rounded-2xl shadow-xl dark:shadow-2xl max-w-4xl mx-auto animate-fade-in-up">
+                <p class="text-lg text-light-subtext dark:text-dark-subtext leading-relaxed">
                     I have a background in Agricultural and Bioresources Engineering, where I learned to break down complex problems and design efficient systems. While conducting research and building websites, I discovered a passion for the technology that drives them.
                 </p>
-                <p class="text-lg text-dark-subtext leading-relaxed mt-4">
+                <p class="text-lg text-light-subtext dark:text-dark-subtext leading-relaxed mt-4">
                     Now, through the <strong>Power Learn Project</strong>, I’m advancing my skills in Python, database design, and modern web technologies to create reliable, data-driven solutions that solve real problems.
                 </p>
             </div>
@@ -147,69 +177,69 @@
         <!-- Skills Section -->
         <section id="skills" class="py-24">
             <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold text-white">My Toolkit</h2>
-                <p class="text-dark-subtext mt-2">The skills I use to bring ideas to life.</p>
+                <h2 class="text-4xl font-bold text-light-text dark:text-white">My Toolkit</h2>
+                <p class="text-light-subtext dark:text-dark-subtext mt-2">The skills I use to bring ideas to life.</p>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 
                 <!-- Skill Card: Python Programming -->
-                <div class="skill-card bg-dark-card p-8 rounded-2xl shadow-lg hover:shadow-blue-500/20 hover:-translate-y-2 transition-all duration-300 animate-fade-in-up">
+                <div class="skill-card bg-light-card dark:bg-dark-card p-8 rounded-2xl shadow-lg hover:shadow-blue-500/20 hover:-translate-y-2 transition-all duration-300 animate-fade-in-up">
                     <div class="flex items-center mb-4">
-                        <div class="p-3 bg-blue-500/10 rounded-lg mr-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="m13.5 2 4.5 4.5-10 10-4.5 1 1-4.5Z"/><path d="m22 2-4.5 4.5"/></svg></div>
-                        <h3 class="text-xl font-bold text-white">Python Programming</h3>
+                        <div class="p-3 bg-blue-500/10 rounded-lg mr-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-500"><path d="m13.5 2 4.5 4.5-10 10-4.5 1 1-4.5Z"/><path d="m22 2-4.5 4.5"/></svg></div>
+                        <h3 class="text-xl font-bold text-light-text dark:text-white">Python Programming</h3>
                     </div>
-                    <p class="text-dark-subtext mb-4">Certified in Python (PCAP) and currently applying it to build backend services and data-driven applications through the Power Learn Project.</p>
-                    <a href="./ONYEKANWOKIKE-Programming Esse-certificate.pdf" target="_blank" rel="noopener noreferrer" class="inline-block mt-2 bg-slate-700 text-dark-subtext font-semibold px-4 py-2 rounded-lg text-sm hover:bg-slate-600 hover:text-white transition-colors duration-300">
+                    <p class="text-light-subtext dark:text-dark-subtext mb-4">Certified in Python (PCAP) and currently applying it to build backend services and data-driven applications through the Power Learn Project.</p>
+                    <a href="./ONYEKANWOKIKE-Programming Esse-certificate.pdf" target="_blank" rel="noopener noreferrer" class="inline-block mt-2 bg-gray-100 dark:bg-slate-700 text-light-subtext dark:text-dark-subtext font-semibold px-4 py-2 rounded-lg text-sm hover:bg-gray-200 dark:hover:bg-slate-600 hover:text-light-text dark:hover:text-white transition-colors duration-300">
                         View PCAP Certificate
                     </a>
                 </div>
 
                 <!-- Skill Card: Web Development -->
-                <div class="skill-card bg-dark-card p-8 rounded-2xl shadow-lg hover:shadow-red-500/20 hover:-translate-y-2 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.1s;">
+                <div class="skill-card bg-light-card dark:bg-dark-card p-8 rounded-2xl shadow-lg hover:shadow-red-500/20 hover:-translate-y-2 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.1s;">
                     <div class="flex items-center mb-4">
-                        <div class="p-3 bg-red-500/10 rounded-lg mr-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-red-400"><path d="m10 10-2 2 2 2"/><path d="m14 14 2-2-2-2"/><path d="M20 4 4 20"/><path d="M14.5 3.5a2.12 2.12 0 0 1 3 3L7 17H4v-3Z"/></svg></div>
-                        <h3 class="text-xl font-bold text-white">Web Development</h3>
+                        <div class="p-3 bg-red-500/10 rounded-lg mr-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-red-500"><path d="m10 10-2 2 2 2"/><path d="m14 14 2-2-2-2"/><path d="M20 4 4 20"/><path d="M14.5 3.5a2.12 2.12 0 0 1 3 3L7 17H4v-3Z"/></svg></div>
+                        <h3 class="text-xl font-bold text-light-text dark:text-white">Web Development</h3>
                     </div>
-                    <p class="text-dark-subtext mb-4">Building modern, responsive user interfaces with HTML, CSS, and JavaScript, and connecting them to powerful back-end logic.</p>
-                    <div class="w-full bg-slate-700 rounded-full h-2.5"><div class="bg-red-500 h-2.5 rounded-full" style="width: 40%"></div></div>
+                    <p class="text-light-subtext dark:text-dark-subtext mb-4">Building modern, responsive user interfaces with HTML, CSS, and JavaScript, and connecting them to powerful back-end logic.</p>
+                    <div class="w-full bg-gray-200 dark:bg-slate-700 rounded-full h-2.5"><div class="bg-red-500 h-2.5 rounded-full" style="width: 40%"></div></div>
                 </div>
 
                 <!-- Skill Card: Database Design & SQL -->
-                <div class="skill-card bg-dark-card p-8 rounded-2xl shadow-lg hover:shadow-green-500/20 hover:-translate-y-2 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.2s;">
+                <div class="skill-card bg-light-card dark:bg-dark-card p-8 rounded-2xl shadow-lg hover:shadow-green-500/20 hover:-translate-y-2 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.2s;">
                     <div class="flex items-center mb-4">
-                        <div class="p-3 bg-green-500/10 rounded-lg mr-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-400"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/></svg></div>
-                        <h3 class="text-xl font-bold text-white">Database Design & SQL</h3>
+                        <div class="p-3 bg-green-500/10 rounded-lg mr-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/></svg></div>
+                        <h3 class="text-xl font-bold text-light-text dark:text-white">Database Design & SQL</h3>
                     </div>
-                    <p class="text-dark-subtext mb-4">Proficient in designing and managing relational databases to ensure data integrity and efficient querying for applications.</p>
-                    <div class="w-full bg-slate-700 rounded-full h-2.5"><div class="bg-green-500 h-2.5 rounded-full" style="width: 35%"></div></div>
+                    <p class="text-light-subtext dark:text-dark-subtext mb-4">Proficient in designing and managing relational databases to ensure data integrity and efficient querying for applications.</p>
+                    <div class="w-full bg-gray-200 dark:bg-slate-700 rounded-full h-2.5"><div class="bg-green-500 h-2.5 rounded-full" style="width: 35%"></div></div>
                 </div>
                 
                 <!-- Skill Card: Digital Presence & SEO -->
-                <div class="skill-card bg-dark-card p-8 rounded-2xl shadow-lg hover:shadow-teal-500/20 hover:-translate-y-2 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.3s;">
+                <div class="skill-card bg-light-card dark:bg-dark-card p-8 rounded-2xl shadow-lg hover:shadow-teal-500/20 hover:-translate-y-2 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.3s;">
                     <div class="flex items-center mb-4">
-                        <div class="p-3 bg-teal-500/10 rounded-lg mr-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-teal-400"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg></div>
-                        <h3 class="text-xl font-bold text-white">Digital Presence & SEO</h3>
+                        <div class="p-3 bg-teal-500/10 rounded-lg mr-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-teal-500"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg></div>
+                        <h3 class="text-xl font-bold text-light-text dark:text-white">Digital Presence & SEO</h3>
                     </div>
-                    <p class="text-dark-subtext">Skilled in building engaging websites with WordPress and developing content strategies that capture organic traffic and grow online communities.</p>
+                    <p class="text-light-subtext dark:text-dark-subtext">Skilled in building engaging websites with WordPress and developing content strategies that capture organic traffic and grow online communities.</p>
                 </div>
 
                 <!-- Skill Card: Academic Research & Writing -->
-                <div class="skill-card bg-dark-card p-8 rounded-2xl shadow-lg hover:shadow-purple-500/20 hover:-translate-y-2 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.4s;">
+                <div class="skill-card bg-light-card dark:bg-dark-card p-8 rounded-2xl shadow-lg hover:shadow-purple-500/20 hover:-translate-y-2 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.4s;">
                     <div class="flex items-center mb-4">
-                        <div class="p-3 bg-purple-500/10 rounded-lg mr-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-purple-400"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
-                        <h3 class="text-xl font-bold text-white">Research & Writing</h3>
+                        <div class="p-3 bg-purple-500/10 rounded-lg mr-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-purple-500"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+                        <h3 class="text-xl font-bold text-light-text dark:text-white">Research & Writing</h3>
                     </div>
-                    <p class="text-dark-subtext">Experienced in conducting in-depth research and communicating complex ideas clearly, a skill I honed in academia and as the founder of Igbo Archives.</p>
+                    <p class="text-light-subtext dark:text-dark-subtext">Experienced in conducting in-depth research and communicating complex ideas clearly, a skill I honed in academia and as the founder of Igbo Archives.</p>
                 </div>
 
                 <!-- Skill Card: Startup Building -->
-                <div class="skill-card bg-dark-card p-8 rounded-2xl shadow-lg hover:shadow-yellow-500/20 hover:-translate-y-2 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.5s;">
+                <div class="skill-card bg-light-card dark:bg-dark-card p-8 rounded-2xl shadow-lg hover:shadow-yellow-500/20 hover:-translate-y-2 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.5s;">
                     <div class="flex items-center mb-4">
-                        <div class="p-3 bg-yellow-500/10 rounded-lg mr-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-yellow-400"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.33-.04-3.07-.75-.75-2.23-.72-3.07-.03Z"/><path d="M22 8c0-2.5-2-2.5-2-5s-2.5-2-5-2c-.93 0-1.56.34-2.1.9L4.9 16.9c-.75.75-.72 2.23-.03 3.07.76.76 2.34.72 3.07-.04l11.04-11.04c.56-.56.9-1.17.9-2.1Z"/></svg></div>
-                        <h3 class="text-xl font-bold text-white">Entrepreneurial Mindset</h3>
+                        <div class="p-3 bg-yellow-500/10 rounded-lg mr-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-yellow-500"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.33-.04-3.07-.75-.75-2.23-.72-3.07-.03Z"/><path d="M22 8c0-2.5-2-2.5-2-5s-2.5-2-5-2c-.93 0-1.56.34-2.1.9L4.9 16.9c-.75.75-.72 2.23-.03 3.07.76.76 2.34.72 3.07-.04l11.04-11.04c.56-.56.9-1.17.9-2.1Z"/></svg></div>
+                        <h3 class="text-xl font-bold text-light-text dark:text-white">Entrepreneurial Mindset</h3>
                     </div>
-                    <p class="text-dark-subtext mb-4">Learning the principles of startup creation, from validating an idea to building a minimum viable product and understanding market dynamics.</p>
-                    <div class="w-full bg-slate-700 rounded-full h-2.5"><div class="bg-yellow-500 h-2.5 rounded-full" style="width: 20%"></div></div>
+                    <p class="text-light-subtext dark:text-dark-subtext mb-4">Learning the principles of startup creation, from validating an idea to building a minimum viable product and understanding market dynamics.</p>
+                    <div class="w-full bg-gray-200 dark:bg-slate-700 rounded-full h-2.5"><div class="bg-yellow-500 h-2.5 rounded-full" style="width: 20%"></div></div>
                 </div>
             </div>
         </section>
@@ -217,20 +247,20 @@
         <!-- Projects Section -->
         <section id="projects" class="py-24">
             <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold text-white">Featured Work</h2>
-                <p class="text-dark-subtext mt-2">A selection of projects where I've made an impact.</p>
+                <h2 class="text-4xl font-bold text-light-text dark:text-white">Featured Work</h2>
+                <p class="text-light-subtext dark:text-dark-subtext mt-2">A selection of projects where I've made an impact.</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <!-- Project Card: Igbo Archives -->
-                <div class="project-card group bg-dark-card rounded-2xl overflow-hidden shadow-lg hover:shadow-brand-secondary/20 transition-all duration-300 animate-fade-in-up">
+                <div class="project-card group bg-light-card dark:bg-dark-card rounded-2xl overflow-hidden shadow-lg hover:shadow-brand-secondary/20 transition-all duration-300 animate-fade-in-up">
                     <div class="p-8">
-                        <h3 class="text-2xl font-bold text-white mb-2">Igbo Archives</h3>
-                        <p class="text-dark-subtext mb-6">As founder and chief author, I built this cultural heritage platform from the ground up on WordPress, focusing on a content strategy that drives significant organic growth.</p>
+                        <h3 class="text-2xl font-bold text-light-text dark:text-white mb-2">Igbo Archives</h3>
+                        <p class="text-light-subtext dark:text-dark-subtext mb-6">As founder and chief author, I built this cultural heritage platform from the ground up on WordPress, focusing on a content strategy that drives significant organic growth.</p>
                         <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="tag bg-brand-secondary/10 text-brand-secondary">WordPress</span>
-                            <span class="tag bg-brand-secondary/10 text-brand-secondary">SEO</span>
-                            <span class="tag bg-brand-secondary/10 text-brand-secondary">Content Strategy</span>
-                            <span class="tag bg-brand-secondary/10 text-brand-secondary">Founder</span>
+                            <span class="tag bg-brand-secondary/10 text-brand-secondary px-3 py-1 rounded-full text-sm font-semibold">WordPress</span>
+                            <span class="tag bg-brand-secondary/10 text-brand-secondary px-3 py-1 rounded-full text-sm font-semibold">SEO</span>
+                            <span class="tag bg-brand-secondary/10 text-brand-secondary px-3 py-1 rounded-full text-sm font-semibold">Content Strategy</span>
+                            <span class="tag bg-brand-secondary/10 text-brand-secondary px-3 py-1 rounded-full text-sm font-semibold">Founder</span>
                         </div>
                         <a href="https://Igboarchives.com.ng" target="_blank" rel="noopener noreferrer" class="font-semibold text-brand-primary group-hover:text-blue-400 transition-colors duration-300">
                             Visit Site &rarr;
@@ -238,14 +268,14 @@
                     </div>
                 </div>
                 <!-- Project Card: BrainBurst Nigeria -->
-                <div class="project-card group bg-dark-card rounded-2xl overflow-hidden shadow-lg hover:shadow-brand-secondary/20 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.1s;">
+                <div class="project-card group bg-light-card dark:bg-dark-card rounded-2xl overflow-hidden shadow-lg hover:shadow-brand-secondary/20 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.1s;">
                     <div class="p-8">
-                        <h3 class="text-2xl font-bold text-white mb-2">BrainBurst Nigeria</h3>
-                        <p class="text-dark-subtext mb-6">I designed the website and implemented a full technical SEO overhaul to boost search visibility, improve user experience, and grow their online audience.</p>
+                        <h3 class="text-2xl font-bold text-light-text dark:text-white mb-2">BrainBurst Nigeria</h3>
+                        <p class="text-light-subtext dark:text-dark-subtext mb-6">I designed the website and implemented a full technical SEO overhaul to boost search visibility, improve user experience, and grow their online audience.</p>
                         <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="tag bg-brand-secondary/10 text-brand-secondary">WordPress</span>
-                            <span class="tag bg-brand-secondary/10 text-brand-secondary">Technical SEO</span>
-                            <span class="tag bg-brand-secondary/10 text-brand-secondary">UI/UX Design</span>
+                            <span class="tag bg-brand-secondary/10 text-brand-secondary px-3 py-1 rounded-full text-sm font-semibold">WordPress</span>
+                            <span class="tag bg-brand-secondary/10 text-brand-secondary px-3 py-1 rounded-full text-sm font-semibold">Technical SEO</span>
+                            <span class="tag bg-brand-secondary/10 text-brand-secondary px-3 py-1 rounded-full text-sm font-semibold">UI/UX Design</span>
                         </div>
                         <a href="https://BrainBurst.com.ng" target="_blank" rel="noopener noreferrer" class="font-semibold text-brand-primary group-hover:text-blue-400 transition-colors duration-300">
                             Visit Site &rarr;
@@ -253,14 +283,14 @@
                     </div>
                 </div>
                  <!-- Project Card: PrivCon Privacy Awards -->
-                <div class="project-card group bg-dark-card rounded-2xl overflow-hidden shadow-lg hover:shadow-brand-secondary/20 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.2s;">
+                <div class="project-card group bg-light-card dark:bg-dark-card rounded-2xl overflow-hidden shadow-lg hover:shadow-brand-secondary/20 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.2s;">
                     <div class="p-8">
-                        <h3 class="text-2xl font-bold text-white mb-2">PrivCon Privacy Awards</h3>
-                        <p class="text-dark-subtext mb-6">Developed the official website for a high-profile awards event, ensuring a secure, professional, and responsive experience for all nominees and attendees.</p>
+                        <h3 class="text-2xl font-bold text-light-text dark:text-white mb-2">PrivCon Privacy Awards</h3>
+                        <p class="text-light-subtext dark:text-dark-subtext mb-6">Developed the official website for a high-profile awards event, ensuring a secure, professional, and responsive experience for all nominees and attendees.</p>
                         <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="tag bg-brand-secondary/10 text-brand-secondary">WordPress</span>
-                            <span class="tag bg-brand-secondary/10 text-brand-secondary">Event Site</span>
-                            <span class="tag bg-brand-secondary/10 text-brand-secondary">Security</span>
+                            <span class="tag bg-brand-secondary/10 text-brand-secondary px-3 py-1 rounded-full text-sm font-semibold">WordPress</span>
+                            <span class="tag bg-brand-secondary/10 text-brand-secondary px-3 py-1 rounded-full text-sm font-semibold">Event Site</span>
+                            <span class="tag bg-brand-secondary/10 text-brand-secondary px-3 py-1 rounded-full text-sm font-semibold">Security</span>
                         </div>
                         <a href="https://privconprivacyawards.ng" target="_blank" rel="noopener noreferrer" class="font-semibold text-brand-primary group-hover:text-blue-400 transition-colors duration-300">
                             Visit Site &rarr;
@@ -268,14 +298,14 @@
                     </div>
                 </div>
                  <!-- Project Card: Barroti Apartments -->
-                <div class="project-card group bg-dark-card rounded-2xl overflow-hidden shadow-lg hover:shadow-brand-secondary/20 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.3s;">
+                <div class="project-card group bg-light-card dark:bg-dark-card rounded-2xl overflow-hidden shadow-lg hover:shadow-brand-secondary/20 transition-all duration-300 animate-fade-in-up" style="animation-delay: 0.3s;">
                     <div class="p-8">
-                        <h3 class="text-2xl font-bold text-white mb-2">Barroti Apartments</h3>
-                        <p class="text-dark-subtext mb-6">Designed and launched a modern website to elevate the brand's online presence, focusing on a clean user interface for property listings and effective lead generation.</p>
+                        <h3 class="text-2xl font-bold text-light-text dark:text-white mb-2">Barroti Apartments</h3>
+                        <p class="text-light-subtext dark:text-dark-subtext mb-6">Designed and launched a modern website to elevate the brand's online presence, focusing on a clean user interface for property listings and effective lead generation.</p>
                         <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="tag bg-brand-secondary/10 text-brand-secondary">WordPress</span>
-                            <span class="tag bg-brand-secondary/10 text-brand-secondary">Real Estate</span>
-                            <span class="tag bg-brand-secondary/10 text-brand-secondary">Lead Gen</span>
+                            <span class="tag bg-brand-secondary/10 text-brand-secondary px-3 py-1 rounded-full text-sm font-semibold">WordPress</span>
+                            <span class="tag bg-brand-secondary/10 text-brand-secondary px-3 py-1 rounded-full text-sm font-semibold">Real Estate</span>
+                            <span class="tag bg-brand-secondary/10 text-brand-secondary px-3 py-1 rounded-full text-sm font-semibold">Lead Gen</span>
                         </div>
                         <a href="https://apartments.barroti.org" target="_blank" rel="noopener noreferrer" class="font-semibold text-brand-primary group-hover:text-blue-400 transition-colors duration-300">
                             Visit Site &rarr;
@@ -288,24 +318,24 @@
         <!-- Education Section -->
         <section id="education" class="py-24">
             <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold text-white">Education & Credentials</h2>
-                <p class="text-dark-subtext mt-2">My formal qualifications and learning journey.</p>
+                <h2 class="text-4xl font-bold text-light-text dark:text-white">Education & Credentials</h2>
+                <p class="text-light-subtext dark:text-dark-subtext mt-2">My formal qualifications and learning journey.</p>
             </div>
             <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
-                <div class="bg-dark-card p-8 rounded-2xl shadow-lg animate-fade-in-up">
+                <div class="bg-light-card dark:bg-dark-card p-8 rounded-2xl shadow-lg animate-fade-in-up">
                     <p class="text-sm text-brand-primary font-semibold mb-1">2017 - 2023</p>
-                    <h3 class="text-xl font-bold text-white">University of Nigeria, Nsukka</h3>
-                    <p class="text-dark-subtext mt-2">Bachelor of Engineering (B.Eng), Agricultural and Bioresources Engineering</p>
+                    <h3 class="text-xl font-bold text-light-text dark:text-white">University of Nigeria, Nsukka</h3>
+                    <p class="text-light-subtext dark:text-dark-subtext mt-2">Bachelor of Engineering (B.Eng), Agricultural and Bioresources Engineering</p>
                 </div>
-                <div class="bg-dark-card p-8 rounded-2xl shadow-lg animate-fade-in-up" style="animation-delay: 0.1s;">
+                <div class="bg-light-card dark:bg-dark-card p-8 rounded-2xl shadow-lg animate-fade-in-up" style="animation-delay: 0.1s;">
                     <p class="text-sm text-brand-secondary font-semibold mb-1">2014 - 2017</p>
-                    <h3 class="text-xl font-bold text-white">Federal Science and Technical College, Awka</h3>
-                    <p class="text-dark-subtext mt-2">Electrical Installation and Maintenance Work (NABTEB)</p>
+                    <h3 class="text-xl font-bold text-light-text dark:text-white">Federal Science and Technical College, Awka</h3>
+                    <p class="text-light-subtext dark:text-dark-subtext mt-2">Electrical Installation and Maintenance Work (NABTEB)</p>
                 </div>
-                <div class="bg-dark-card p-8 rounded-2xl shadow-lg animate-fade-in-up md:col-span-2" style="animation-delay: 0.2s;">
+                <div class="bg-light-card dark:bg-dark-card p-8 rounded-2xl shadow-lg animate-fade-in-up md:col-span-2" style="animation-delay: 0.2s;">
                     <p class="text-sm text-blue-400 font-semibold mb-1">Issued Jul 2019</p>
-                    <h3 class="text-xl font-bold text-white">PCAP: Programming Essentials in Python</h3>
-                    <p class="text-dark-subtext mt-2">Cisco Networking Academy & OpenEDG Python Institute</p>
+                    <h3 class="text-xl font-bold text-light-text dark:text-white">PCAP: Programming Essentials in Python</h3>
+                    <p class="text-light-subtext dark:text-dark-subtext mt-2">Cisco Networking Academy & OpenEDG Python Institute</p>
                 </div>
             </div>
         </section>
@@ -313,45 +343,28 @@
         <!-- Contact Section -->
         <section id="contact" class="py-24">
              <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold text-white">Let's Connect</h2>
-                <p class="text-dark-subtext mt-2">I'm always open to discussing new projects, creative ideas, or opportunities.</p>
+                <h2 class="text-4xl font-bold text-light-text dark:text-white">Let's Connect</h2>
+                <p class="text-light-subtext dark:text-dark-subtext mt-2">I'm always open to discussing new projects, creative ideas, or opportunities.</p>
             </div>
-            <div class="bg-dark-card max-w-3xl mx-auto p-8 md:p-12 rounded-2xl shadow-2xl animate-fade-in-up">
-                <div class="text-center text-dark-subtext mb-8 space-y-2">
+            <div class="bg-light-card dark:bg-dark-card max-w-3xl mx-auto p-8 md:p-12 rounded-2xl shadow-xl dark:shadow-2xl animate-fade-in-up">
+                <div class="text-center text-light-subtext dark:text-dark-subtext mb-8 space-y-2">
                     <p><strong>Email:</strong> <a href="mailto:nwokikeonyeka@gmail.com" class="text-brand-primary hover:underline">nwokikeonyeka@gmail.com</a></p>
                     <p><strong>Phone:</strong> +234 906 907 1922</p>
                     <p><strong>Location:</strong> Gwagwalada, FCT, Nigeria</p>
                 </div>
-                <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="space-y-6">
-                    <!-- Replace YOUR_FORM_ID with your actual Formspree ID from formspree.io -->
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="name" class="block text-sm font-medium text-dark-subtext mb-2">Your Name</label>
-                            <input type="text" id="name" name="name" required class="w-full bg-slate-700 border-slate-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-brand-primary focus:border-brand-primary outline-none transition">
-                        </div>
-                        <div>
-                            <label for="email" class="block text-sm font-medium text-dark-subtext mb-2">Your Email</label>
-                            <input type="email" id="email" name="email" required class="w-full bg-slate-700 border-slate-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-brand-primary focus:border-brand-primary outline-none transition">
-                        </div>
-                    </div>
-                    <div>
-                        <label for="message" class="block text-sm font-medium text-dark-subtext mb-2">Message</label>
-                        <textarea id="message" name="message" rows="5" required class="w-full bg-slate-700 border-slate-600 text-white rounded-lg p-3 focus:ring-2 focus:ring-brand-primary focus:border-brand-primary outline-none transition"></textarea>
-                    </div>
-                    <div>
-                        <button type="submit" class="w-full bg-brand-primary text-white font-bold py-4 px-6 rounded-lg hover:bg-blue-500 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/30">
-                            Send Message
-                        </button>
-                    </div>
-                </form>
+                <div class="text-center">
+                     <a href="mailto:nwokikeonyeka@gmail.com?subject=Project Inquiry from your Portfolio" class="w-full inline-block bg-brand-primary text-white font-bold py-4 px-6 rounded-lg hover:bg-blue-500 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/30">
+                        Send me an Email
+                    </a>
+                </div>
             </div>
         </section>
 
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-slate-800 mt-16">
-        <div class="container mx-auto px-6 py-8 text-center text-dark-subtext">
+    <footer class="border-t border-gray-200 dark:border-slate-800 mt-16">
+        <div class="container mx-auto px-6 py-8 text-center text-light-subtext dark:text-dark-subtext">
             <p>&copy; <span id="year"></span> Onyeka Nwokike. All Rights Reserved.</p>
             <p class="text-sm mt-2">Built with <span class="text-red-400">&hearts;</span> and Tailwind CSS</p>
         </div>
@@ -360,6 +373,34 @@
     <!-- JavaScript for Interactions -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // --- THEME TOGGLER SCRIPT ---
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const htmlEl = document.documentElement;
+
+            // Function to apply the theme
+            const applyTheme = (theme) => {
+                if (theme === 'dark') {
+                    htmlEl.classList.add('dark');
+                } else {
+                    htmlEl.classList.remove('dark');
+                }
+                // Re-initialize feather icons to render them correctly after theme change
+                feather.replace();
+            };
+
+            // Check for saved theme in localStorage or use system preference
+            const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            applyTheme(savedTheme);
+
+            // Event listener for the toggle button
+            themeToggleBtn.addEventListener('click', () => {
+                const isDark = htmlEl.classList.contains('dark');
+                const newTheme = isDark ? 'light' : 'dark';
+                localStorage.setItem('theme', newTheme);
+                applyTheme(newTheme);
+            });
+            
+            // --- ORIGINAL SCRIPT ---
             // Set current year in footer
             document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -397,9 +438,9 @@
             const header = document.getElementById('header');
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 10) {
-                    header.classList.add('shadow-lg', 'shadow-black/20');
+                    header.classList.add('shadow-lg', 'shadow-black/5', 'dark:shadow-black/20');
                 } else {
-                    header.classList.remove('shadow-lg', 'shadow-black/20');
+                    header.classList.remove('shadow-lg', 'shadow-black/5', 'dark:shadow-black/20');
                 }
             });
         });
